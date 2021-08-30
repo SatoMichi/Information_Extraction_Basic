@@ -1,0 +1,2 @@
+# Information_Extraction_Basic
+Technologies about Information Extraction
