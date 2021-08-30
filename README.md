@@ -50,3 +50,38 @@ rules = {   lambda x: x=="男":"People",
 羅生<Location>門</Location>が、朱雀<Location>大路</Location>にある以上は、この<People>男</People>のほかにも、雨やみをする市女笠や揉烏帽子が、
 もう<Number>二</Number><Number>三</Number>人はありそうなものである。それが、この<People>男</People>のほかには誰もいない
 ```
+
+## Machine learning based NER()  
+NER task is recognized as labeling(classification) problem for each word.
+For example,
+```
+Raw text:
+"羅生門が、朱雀大路にある以上は、この男のほかにも、雨やみをする市女笠や揉烏帽子が、もう二三人はありそうなものである。それが、この男のほかには誰もいない"
+
+Labeled text:
+"<B-LOC>羅生</B-LOC><I-LOC>門</I-LOC>が、<B-LOC>朱雀</B-LOC><I-LOC>大路</I-LOC>にある以上は、この<B-PER>男</b_PER>のほかにも、雨やみをする市女笠や揉烏帽子が、もう<B-NUM>二</B-NUM><B-NUM>三</B-NUM>人はありそうなものである。それが、この<B-PER>男</B-PER>のほかには誰もいない"
+# this is using IOB2 representation
+
+Tokens:
+['羅生門', 'が', '、', '朱雀', '大路', 'に', 'ある', '以上', 'は', '、', 'この', '男', 'の', 'ほか', 'に', 'も', '、', '雨', 'やみ', 'を', 'する', '市', '女', '笠', 'や', '揉烏帽', '子', 'が', '、', 'もう', '二', '三', '人', 'は', 'あり', 'そう', 'な', 'もの', 'で', 'ある', '。', 'それ', 'が', '、', 'この', '男', 'の', 'ほか', 'に', 'は', '誰
+', 'も', 'い', 'ない']
+
+POS tags:
+['名詞', '助詞', '記号', '名詞', '名詞', '助詞', '動詞', '名詞', '助詞', '記号', '連体詞', '名詞', '助詞', '名詞', '助詞', '助詞', '記号', '名詞', '名詞', '助詞', '動詞', '名詞', '名詞', '名詞', '助詞', '名詞', '名詞', '助詞', '記号', '副詞', '名詞', '名詞', '名詞', '助詞', '動詞', '名詞', '助動詞', '名詞', '助動詞', '助動詞', '記号', '名詞', '助詞', '記号', '連体詞', '名詞', '助詞', '名詞', '助詞', '助詞', '名詞', '助詞', '動詞', '助動詞']
+```
+then we can represent a word with its features and context's features.
+```
+word: x[i] = '大路'
+context(win_size=1): [x[i-1],x[i+1]] = ['朱雀', 'に']
+features: [x[i],x[i].POS,x[i-1],x[i-1].POS,x[i+1],x[i+1].POS] = ['大路','名詞','朱雀','名詞','に','助詞']
+correct label: I_LOC
+```
+Features should be represented as vector for training model (one-hot vector could be one of the option).
+So, model's input will be feature of the word(vector), output will be label of the word.  
+NER process will be
+ 1. tokenize text into [words]
+ 2. convert each words into feature vector **v**
+ 3. label the word with output of the model which input is **v**
+ 4. extract word with relevant lables
+
+
