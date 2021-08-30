@@ -3,6 +3,9 @@
 
 情報抽出に関する技術をまとめたレポジトリである。といったものの、最新の技術までカバーされているわけではない。どちらかといえば古典的なアルゴリズムによるところが大きいといえる。
 
+# Requirements
+ - *janome* for Japanese language processing
+
 # Corpus  
 Basically this Information Extraction(IE) algorithm is assuming corpus or text of Japanese.
 Corpus is constructed by the tool "doccano"(http://doccano.herokuapp.com/).
@@ -26,5 +29,24 @@ dictionary = {  "男":"People",
 もう二三人はありそうなものである。それが、この男のほかには誰もいない
 
 広い門の下には、この<People>男</People>のほかに誰もいない。ただ、所々丹塗の剥はげた、大きな円柱に、<Organism>蟋蟀</Organism>が<Number>一</Number>匹とまっている。<Location>羅生門</Location>が、<Location>朱雀大路</Location>にある以上は、この<People>男</People>のほかにも、雨やみをする市女笠や揉烏帽子が、
+もう<Number>二</Number><Number>三</Number>人はありそうなものである。それが、この<People>男</People>のほかには誰もいない
+```
+
+## Rule based NER(rule_base_ner.py)  
+All the word needed to be recognezed should match the rules given by user. First, text will be tokenized to list of word. To all of the words obtained, rules will be applied from head to tail, and if it matched, the word will be labeled as the value of the rule. This will depend on the accuracy of tokenization, and well formed rule with correct order.
+```
+rules = {   lambda x: x=="男":"People",
+            lambda x: x=="蟋蟀":"Organism",
+            lambda x: x[-1]=="門":"Location",
+            lambda x: x[-2:]=="大路":"Location",
+            lambda x: x=="一" or x=="二" or x=="三":"Number",}
+```
+```
+広い門の下には、この男のほかに誰もいない。ただ、所々丹塗の剥はげた、大きな円柱に、蟋蟀が一匹とまっている。
+羅生門が、朱雀大路にある以上は、この男のほかにも、雨やみをする市女笠や揉烏帽子が、
+もう二三人はありそうなものである。それが、この男のほかには誰もいない
+
+広い<Location>門</Location>の下には、この<People>男</People>のほかに誰もいない。ただ、所々丹塗の剥はげた、大きな円柱に、<Organism>蟋蟀</Organism>が<Number>一</Number>匹とまっている。
+羅生<Location>門</Location>が、朱雀<Location>大路</Location>にある以上は、この<People>男</People>のほかにも、雨やみをする市女笠や揉烏帽子が、
 もう<Number>二</Number><Number>三</Number>人はありそうなものである。それが、この<People>男</People>のほかには誰もいない
 ```
