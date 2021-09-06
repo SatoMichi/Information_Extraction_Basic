@@ -51,7 +51,7 @@ rules = {   lambda x: x=="男":"People",
 もう<Number>二</Number><Number>三</Number>人はありそうなものである。それが、この<People>男</People>のほかには誰もいない
 ```
 
-## Machine learning based NER()  
+## Machine learning based NER(ml_base_ner.py)  
 NER task is recognized as labeling(classification) problem for each word.
 For example,
 ```
@@ -84,4 +84,11 @@ NER process will be
  3. label the word with output of the model which input is **v**
  4. extract word with relevant lables
 
+Method used in the training model is called "one-versus-rest", which train binary classifier for each label.
+For exapmle, if there is 3 labels, the train three binary classifer (perceptron).  
+In addition, to remove non-resonable sequence of labels, Viterbi algorithm can be used.  
+For example, these are non-reasonable labels sequence.
+ - O -> I_PER
+ - I_ORG -> I_PER
 
+## Linear Structured Learning based NER()  
