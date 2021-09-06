@@ -28,7 +28,8 @@ dictionary = {  "男":"People",
 羅生門が、朱雀大路にある以上は、この男のほかにも、雨やみをする市女笠や揉烏帽子が、
 もう二三人はありそうなものである。それが、この男のほかには誰もいない
 
-広い門の下には、この<People>男</People>のほかに誰もいない。ただ、所々丹塗の剥はげた、大きな円柱に、<Organism>蟋蟀</Organism>が<Number>一</Number>匹とまっている。<Location>羅生門</Location>が、<Location>朱雀大路</Location>にある以上は、この<People>男</People>のほかにも、雨やみをする市女笠や揉烏帽子が、
+広い門の下には、この<People>男</People>のほかに誰もいない。ただ、所々丹塗の剥はげた、大きな円柱に、<Organism>蟋蟀</Organism>が<Number>一</Number>匹とまっている。
+<Location>羅生門</Location>が、<Location>朱雀大路</Location>にある以上は、この<People>男</People>のほかにも、雨やみをする市女笠や揉烏帽子が、
 もう<Number>二</Number><Number>三</Number>人はありそうなものである。それが、この<People>男</People>のほかには誰もいない
 ```
 
